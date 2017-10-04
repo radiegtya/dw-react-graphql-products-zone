@@ -1,9 +1,35 @@
 import React, {Component} from 'react';
+import gql from 'graphql-tag';
+import {graphql} from 'react-apollo';
 
-export default class Category extends Component{
+class Category extends Component{
   render(){
+    const {loading, category} = this.props.data;
+
+    if(loading){
+      return <div>Loading...</div>
+    }
+
     return (
-      <div>Category</div>
+      <div>
+        <p>id: {category.id}</p>
+        <p>name: {category.name}</p>
+      </div>
     )
   }
 }
+
+export default graphql(gql`
+  query Category($id: String!){
+    category(id: $id){
+      id
+      name
+    }
+  }
+`, {
+  options: (props) => {
+    return {
+      variables: {id: props.match.params.id}
+    }
+  }
+})(Category);

@@ -7,7 +7,9 @@ class Categories extends Component {
 
   renderRow(category, index){
     return (
-      <li key={index}>{category.name}</li>
+      <li key={index}>
+        <Link to={`/category/${category.id}`}>{category.name}</Link>
+      </li>
     )
   }
 
@@ -18,10 +20,6 @@ class Categories extends Component {
 
     return (
       <div className="App">
-        <ul>
-          <li><Link to={`/category/1`}>Category</Link></li>
-        </ul>
-
         <ul>
           {this.props.data.categories.map((category, index) => this.renderRow(category, index))}
         </ul>
