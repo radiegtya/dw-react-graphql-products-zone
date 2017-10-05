@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import gql from 'graphql-tag';
+import {graphql} from 'react-apollo';
 
-export default class CategoriesAdd extends Component{
+class CategoriesAdd extends Component{
 
   constructor(){
     super();
@@ -11,7 +13,11 @@ export default class CategoriesAdd extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-    console.log(this.state.name);
+    this.props.mutate({
+      variables: {
+        name: this.state.name
+      }
+    }).then(()=> this.props.history.push('/'))
   }
 
 
@@ -26,3 +32,12 @@ export default class CategoriesAdd extends Component{
     )
   }
 }
+
+export default graphql(gql`
+  mutation createCategory ($name: String!){
+    addCategory(name: $name) {
+      id
+      name
+    }
+  }
+`)(CategoriesAdd);
