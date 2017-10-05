@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
+import {allCategories} from '../queries';
 
 class CategoriesAdd extends Component{
 
@@ -16,7 +17,8 @@ class CategoriesAdd extends Component{
     this.props.mutate({
       variables: {
         name: this.state.name
-      }
+      },
+      refetchQueries: [{query: allCategories}]
     }).then(()=> this.props.history.push('/'))
   }
 

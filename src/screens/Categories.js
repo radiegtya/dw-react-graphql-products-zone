@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import {Link} from 'react-router-dom';
+import {allCategories} from '../queries';
 
 class Categories extends Component {
 
@@ -33,11 +34,4 @@ class Categories extends Component {
 
 }
 
-export default graphql(gql`
-  query allCategories{
-    categories{
-      id
-      name
-    }
-  }
-`)(Categories);
+export default graphql(allCategories)(Categories);
